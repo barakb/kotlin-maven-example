@@ -82,8 +82,8 @@ fun main() = runBlocking {
     val processor = WithCoroutines()
     for (queue in queues) {
         launch {
-            processor.run(queue, db)
-//            processor.runWithDataDependencies(queue, db, this)
+//            processor.run(queue, db)
+            processor.runWithDataDependencies(queue, db, this)
         }
     }
 }

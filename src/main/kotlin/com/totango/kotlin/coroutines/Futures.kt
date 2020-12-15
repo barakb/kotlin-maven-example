@@ -28,7 +28,8 @@ class DbF {
 class UsingFutures {
     fun run(queues: List<QueueF>, db: DbF) {
         fun runOne(queue: QueueF) {
-            queue.take()
+            while(true) {
+                queue.take()
                     .thenCompose { item ->
                         db.readKey1(item).thenCombine(db.readKey2(item)) { k1, k2 ->
                             Triple(item, k1, k2)
@@ -36,8 +37,10 @@ class UsingFutures {
                     }.thenCompose { (item, key1, key2) ->
                         db.update(item, key1, key2)
                     }.handle { _, _ ->
+                        // at least I can handle errors in one place at the end.
                         runOne(queue)
                     }
+            }
         }
         for (queue in queues) {
             runOne(queue)

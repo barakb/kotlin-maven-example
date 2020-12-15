@@ -8,7 +8,6 @@ interface Callback<T> {
     fun fail(err: Exception)
 }
 
-data class Item(val value: Int)
 
 class QueueCB {
     fun take(callback: Callback<Item>) {

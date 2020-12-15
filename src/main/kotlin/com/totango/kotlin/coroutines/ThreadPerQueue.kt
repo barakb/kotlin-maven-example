@@ -2,6 +2,8 @@
 
 package com.totango.kotlin.coroutines
 
+data class Item(val value: Int)
+
 class Queue {
     fun take(): Item {
         return Item(1)
@@ -39,7 +41,7 @@ class ThreadPerQueue {
                         // handle
                     }
                 }
-            }
+            }.start()
         }
     }
 }
