@@ -47,6 +47,7 @@ private suspend fun processItem(db: DbC, item: Item) {
     val key2 = db.readKey2(item)
     println("Thread [${Thread.currentThread().name}] got key2 for $item")
     db.update(item, key1, key2)
+    println("Thread [${Thread.currentThread().name}] call update for $item")
 }
 
 
